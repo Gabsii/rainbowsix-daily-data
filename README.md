@@ -10,7 +10,7 @@ Including general stats (kills, deaths, time played, ...) and operators specific
 - a computer/server that allows for cron jobs (optional)
   - to run the script daily
 
-## Setup 
+## Setup 🐛
 
 Clone this repository and install the dependencies:
 
