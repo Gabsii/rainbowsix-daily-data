@@ -1,0 +1,20 @@
+{
+  "name": "rainbowsix-daily-data",
+  "version": "1.0.0",
+  "description": "mine your R6 stats from the official ubisoft website",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "R6",
+    "web",
+    "scraping"
+  ],
+  "author": "Lukas Samir Gabsi",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^2.1.1"
+  }
+}
