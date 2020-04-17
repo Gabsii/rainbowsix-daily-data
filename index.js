@@ -6,7 +6,7 @@ const credentials = JSON.parse(fs.readFileSync('secrets.json'));
 
 const getData = async () => {
   try {
-    const browser = await puppeteer.launch({ args: ["--proxy-server='direct://'", '--proxy-bypass-list=*']});
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', "--proxy-server='direct://'", '--proxy-bypass-list=*']});
     const page = await browser.newPage();
     await page.goto('https://game-rainbow6.ubi.com/en-gb/home', 
       {            
