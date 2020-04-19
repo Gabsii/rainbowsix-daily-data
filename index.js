@@ -1,8 +1,10 @@
 const puppeteer = require('puppeteer');
 const selectors = require('./selectors');
 const fs = require('fs');
+const path = require('path');
+const shelljs = require('shelljs');
 
-const credentials = JSON.parse(fs.readFileSync('secrets.json'));
+const credentials = JSON.parse(fs.readFileSync(path.resolve(__dirname, './secrets.json')));
 
 const getData = async () => {
   try {
@@ -113,8 +115,8 @@ const getData = async () => {
     })}, selectors);
 
     // save all the data into a json file
-    fs.writeFileSync(`data/rainbow-stats-${dateString()}.json`, JSON.stringify({generalStats, attackers, defenders}, null, 4));
-
+    writeFile({generalStats, attackers, defenders})
+    
     await browser.close();
   } catch(e) {
     console.log(e);
@@ -156,6 +158,22 @@ function dateString(){
 
 
     return [[year, month, day,].join('-'), [hour, minute, seconds].join(':')].join('_');
+}
+
+function writeFile( stats ){
+  const JSONdata = JSON.stringify(stats, null, 4);
+  const fileName = `rainbow-stats-${dateString(JSONdata)}.json`;
+
+  checkForDuplicates(fileName);
+  fs.writeFileSync(path.resolve(__dirname ,`data/${fileName}`), JSONdata);
+}
+
+function checkForDuplicates(fileName) {
+  fs.readdirSync('./data').forEach(file => {
+    if (fileName.split('_')[0] === file.split('_')[0]) {
+      shelljs.mv('-f', path.resolve(__dirname, `data/${file}`), path.resolve(__dirname, `data/duplicates/${file}`));
+    };
+  });
 }
 
 getData();
