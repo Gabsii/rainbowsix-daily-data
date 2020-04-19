@@ -169,7 +169,7 @@ function writeFile( stats ){
 }
 
 function checkForDuplicates(fileName) {
-  fs.readdirSync('./data').forEach(file => {
+  fs.readdirSync(path.resolve(__dirname, './data')).forEach(file => {
     if (fileName.split('_')[0] === file.split('_')[0]) {
       shelljs.mv('-f', path.resolve(__dirname, `data/${file}`), path.resolve(__dirname, `data/duplicates/${file}`));
     };
