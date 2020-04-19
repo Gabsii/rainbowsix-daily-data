@@ -5,6 +5,7 @@ const path = require('path');
 const shelljs = require('shelljs');
 
 const credentials = JSON.parse(fs.readFileSync(path.resolve(__dirname, './secrets.json')));
+let counter = 0;
 
 const getData = async () => {
   try {
@@ -119,9 +120,13 @@ const getData = async () => {
     
     await browser.close();
   } catch(e) {
-    console.log(e);
-    // try again if it fails and probably fry my server
-    getData();
+    // limit to ~10 executions
+    while (counter < 10) {
+      console.log(e);
+      // try again if it fails and probably fry my server
+      getData();
+      counter++;
+    }
   }
 };
 
