@@ -176,7 +176,7 @@ async function writeToDb({generalStats, attackers, defenders}) {
   })
 
   const stats = new Stat({generalStats, attackers: attackersDB, defenders: defendersDB});
-  stats.save().then(console.log('added to db')).catch((err) => {
+  await stats.save().then(console.log('added to db')).catch((err) => {
     if (err) {
       console.log(err);
       throw err;
